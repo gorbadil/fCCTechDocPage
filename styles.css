@@ -1,0 +1,215 @@
+/* Main Desicions */
+
+:root {
+  --back: #f1f6f9;
+  --text: #212a3e;
+  --light: #9ba4b5;
+  --dark: #394867;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: var(--back);
+  color: var(--text);
+}
+/* Arrange Dark-Light Theme */
+.theme {
+  --back: #f1f6f9;
+  --text: #212a3e;
+  transition: 200ms;
+}
+
+.dark-theme {
+  --back: #212a3e;
+  --text: #f1f6f9;
+  transition: 200ms;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+p {
+  text-indent: 30px;
+}
+
+/* Dark-Light Button */
+
+.button-p {
+  right: 5px;
+  height: calc(1rem + 11px);
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  border: 2px solid var(--text);
+  box-sizing: border-box;
+  padding-left: 6px;
+  position: fixed;
+  text-indent: 0;
+  z-index: 3;
+}
+.toggle {
+  padding: 4px 10px;
+  float: right;
+  top: 0;
+  right: 0;
+  margin-left: 6px;
+  font-size: 1rem;
+  background-color: var(--text);
+  color: var(--back);
+}
+.toggle:hover {
+  cursor: pointer;
+}
+
+/* Navbar */
+#navbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  border-right: 1px solid var(--light);
+  min-height: 100vh;
+  border-collapse: collapse;
+}
+#navbar header {
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: bolder;
+  margin: 20px;
+}
+#navbar a:nth-child(1) {
+  border-bottom: 1px solid var(--light);
+}
+.nav-link {
+  font-size: 1.2rem;
+  line-height: 3rem;
+  border-bottom: 1px solid var(--light);
+  border-collapse: collapse;
+}
+@media screen and (min-width: 961px) {
+  .nav-link:hover {
+    background-color: var(--dark);
+    color: var(--back);
+    padding-left: 40px;
+    transition: 100ms;
+  }
+}
+
+.active {
+  position: relative;
+  overflow: hidden;
+}
+
+.active::after {
+  position: absolute;
+  left: 70%;
+  top: -50%;
+  content: "";
+  display: block;
+  background-color: var(--dark);
+  width: 30px;
+  height: 200%;
+  rotate: 30deg;
+}
+
+/* Main Area */
+#main-doc {
+  position: relative;
+  left: 20vw;
+  width: 50vw;
+  margin: 0 auto 0 10%;
+  display: flex;
+  flex-direction: column;
+}
+.main-section {
+  margin: 30px;
+  min-height: 93vh;
+}
+.main-section header {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.main-section p {
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+}
+
+.main-section pre {
+  margin: 20px 0;
+  border: 4px solid var(--light);
+  padding: 5px 0;
+  border-radius: 10px;
+}
+
+.main-section li {
+  text-align: justify;
+  margin: 20px;
+  list-style: none;
+  position: relative;
+  text-indent: 15px;
+}
+.main-section li::before {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-0.5rem);
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(270deg, var(--text), var(--back));
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+}
+
+@media screen and (max-width: 960px) {
+  #navbar {
+    width: 100vw;
+    background-color: var(--back);
+    z-index: 1;
+    overflow: scroll;
+    height: 30vh;
+    text-align: center;
+    min-height: 35vh;
+  }
+  #navbar header {
+    position: fixed;
+    background-color: var(--back);
+    z-index: 1;
+    width: 110vw;
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 30px 0;
+    margin: 0;
+  }
+  #navbar a:nth-child(2) {
+    margin-top: calc(50px + 4rem);
+  }
+  .nav-link:hover {
+    background-color: var(--dark);
+    color: var(--back);
+    transition: 100ms;
+    transform: translateX(0);
+  }
+
+  #main-doc {
+    top: 35vh;
+    width: 80vw;
+    left: 0;
+    overflow: auto;
+  }
+  pre {
+    width: 100%;
+    overflow: auto;
+  }
+}

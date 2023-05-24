@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p class="button-p">
+      Switch Theme
+      <buton class="toggle">Dark</buton>
+    </p>
+    <nav id="navbar">
+      <header>
+        Important <br class="header-br" />
+        React Hooks
+      </header>
+      <a href="#useState" class="nav-link active">useState</a>
+      <a href="#useEffect" class="nav-link">useEffect</a>
+      <a href="#useContext" class="nav-link">useContext</a>
+      <a href="#useReducer" class="nav-link">useReducer</a>
+      <a href="#useCallback" class="nav-link">useCallback</a>
+      <a href="#useMemo" class="nav-link">useMemo</a>
+      <a href="#useRef" class="nav-link">useRef</a>
+      <a href="#useEffect_with_Cleanup" class="nav-link"
+        >useEffect with Cleanup</a
+      >
+    </nav>
+    <main id="main-doc">
+      <section class="main-section" id="useState">
+        <header>useState</header>
+        <p>
+          useState is a fundamental hook in React that allows developers to
+          introduce and manage state within functional components. It enables
+          components to store and update data dynamically, resulting in dynamic
+          and interactive user interfaces. With useState, developers no longer
+          need to convert functional components into class components to handle
+          state, simplifying the code and making it more concise. By utilizing
+          the useState hook, developers can create and manage state variables,
+          which can be updated and accessed within the component's lifecycle.
+          This hook plays a vital role in React development, facilitating the
+          creation of complex and interactive applications.
+        </p>
+        <br />
+        <p>
+          To use the useState hook, developers simply need to import it from the
+          'react' package and invoke it within a functional component. The
+          useState hook takes an initial value as its parameter and returns an
+          array with two elements: the current state value and a function to
+          update that value. By destructuring this array, developers can assign
+          names to the state value and the update function. They can then use
+          the state value within the component's rendering logic, and update it
+          using the provided update function. When the state is updated, React
+          will re-render the component and reflect the changes in the user
+          interface. This simplicity and ease of use make useState a powerful
+          tool for managing state in React applications.
+          <br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <pre>
+              import React, { useState } from 'react';
+              const Counter = () => {
+                const [count, setCount] = useState(0);
+                const increment = () => {
+                  setCount(count + 1);
+                };
+                return (
+                  Count: {count}
+                  &lt;button onClick="{increment}"&gt;Increment&lt;/button&gt;
+                );
+              };
+              export default Counter;
+            </pre
+          >
+        </code>
+
+        <ul>
+          Important features of useState:
+          <li>
+            Simplified State Management: useState simplifies state management in
+            functional components by providing a straightforward way to declare
+            and update state variables.
+          </li>
+          <li>
+            Functional Updates: The update function returned by useState allows
+            for functional updates, enabling developers to update state based on
+            the previous state value. This is particularly useful when dealing
+            with asynchronous updates or when the new state relies on the
+            previous state.
+          </li>
+          <li>
+            Multiple State Variables: useState can be used multiple times within
+            a component to manage different state variables independently. This
+            allows for granular control over various aspects of the component's
+            state.
+          </li>
+          <li>
+            Immutable State: State variables created using useState are
+            immutable, meaning they cannot be modified directly. Instead,
+            developers must use the provided update function to modify the
+            state, ensuring better control and predictability over state
+            changes.
+          </li>
+          <li>
+            Automatic Rerendering: When a state variable is updated using the
+            update function, React automatically re-renders the component,
+            reflecting the changes in the user interface. This makes it easy to
+            keep the UI in sync with the underlying state, resulting in a
+            responsive and interactive application.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useEffect">
+        <header>useEffect</header>
+        <p>
+          useEffect is a powerful hook in React that allows developers to
+          perform side effects in functional components. It serves as a
+          replacement for lifecycle methods in class components, providing a way
+          to execute code in response to component mount, update, or unmount
+          events. With useEffect, developers can handle tasks such as data
+          fetching, subscriptions, or DOM manipulations. The hook takes two
+          arguments: a callback function that contains the side effect logic,
+          and an optional array of dependencies. The callback function is
+          executed after the component has rendered, and it can return a cleanup
+          function to perform any necessary cleanup when the component is
+          unmounted. The useEffect hook provides a flexible and efficient way to
+          manage side effects and keep components in sync with external data or
+          resources.
+        </p>
+        <br />
+        <p>
+          To use the useEffect hook, developers need to import it from the
+          'react' package and invoke it within a functional component. The
+          callback function provided to useEffect will be executed after the
+          component has rendered and on subsequent re-renders, depending on the
+          dependencies specified in the optional array. If the array is empty,
+          the effect will only run once, similar to the componentDidMount
+          lifecycle method in class components. By including dependencies in the
+          array, developers can control when the effect should be re-executed
+          based on changes to those dependencies. This allows for efficient
+          updates and prevents unnecessary re-rendering. The cleanup function
+          returned by the useEffect callback can be used to clean up any
+          resources or subscriptions to avoid memory leaks. Overall, useEffect
+          is a crucial hook for managing side effects in React components.<br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <code>
+            <pre>
+                  import React, { useState, useEffect } from 'react';
+              
+                  const DataFetching = () => {
+                    const [data, setData] = useState(null);
+              
+                    useEffect(() => {
+                      const fetchData = async () => {
+                        const response = await fetch('https://api.example.com/data');
+                        const jsonData = await response.json();
+                        setData(jsonData);
+                      };
+              
+                      fetchData();
+                    }, []);
+              
+                    return (
+                      &lt;div&gt;
+                        {data ? (
+                          &lt;ul&gt;
+                            {data.map((item) => (
+                              &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+                            ))}
+                          &lt;/ul&gt;
+                        ) : (
+                          &lt;p&gt;Loading data...&lt;/p&gt;
+                        )}
+                      &lt;/div&gt;
+                    );
+                  };
+              
+                  export default DataFetching;
+                </pre
+            >
+          </code>
+        </code>
+        <ul>
+          Important features of useEffect:
+          <li>
+            Side Effect Management: useEffect provides a straightforward way to
+            manage side effects in functional components, such as data fetching,
+            subscriptions, or DOM manipulations.
+          </li>
+          <li>
+            Dependency Tracking: The optional dependency array allows developers
+            to specify dependencies that control when the effect should be
+            re-executed. This ensures efficient updates and prevents unnecessary
+            re-rendering.
+          </li>
+          <li>
+            Cleanup Function: The useEffect callback can return a cleanup
+            function, which is executed when the component is unmounted or when
+            the effect is re-executed. This is useful for cleaning up resources
+            or canceling subscriptions to avoid memory leaks.
+          </li>
+          <li>
+            Mimicking Lifecycle Methods: useEffect can replicate the
+            functionality of componentDidMount, componentDidUpdate, and
+            componentWillUnmount lifecycle methods in class components,
+            providing a unified way to handle component lifecycle events.
+          </li>
+          <li>
+            Asynchronous Operations: The useEffect callback can contain
+            asynchronous code, allowing developers to fetch data, make API
+            calls, or perform other async tasks. By using async/await or
+            Promises, asynchronous operations can be seamlessly integrated into
+            the effect.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useContext">
+        <header>useContext</header>
+        <p>
+          useContext is a powerful hook in React that allows components to
+          access a shared state or context without prop drilling. It simplifies
+          the process of passing data down multiple levels of components by
+          providing a way to consume context directly within functional
+          components. With useContext, developers can define a context using the
+          createContext function and create a provider component that wraps the
+          desired part of the component tree. The useContext hook is then used
+          within child components to access the data or functions provided by
+          the context. This eliminates the need for intermediate components to
+          pass props and makes the code more concise and maintainable.
+          useContext is especially useful in scenarios where multiple components
+          need access to the same data or when managing global application
+          state.
+        </p>
+        <br />
+        <p>
+          To utilize useContext, developers need to import it from the 'react'
+          package and define a context using the createContext function. The
+          context object consists of two components: the provider and the
+          consumer. The provider component wraps the part of the component tree
+          that should have access to the context, and it accepts a value prop to
+          provide the data or functions to be shared. Within the child
+          components, the useContext hook is used to consume the context and
+          access the provided values. By invoking useContext with the context
+          object, the hook returns the current context value. Any changes to the
+          context value will trigger a re-render of the components consuming
+          that context. With useContext, developers can effectively manage state
+          or share data across components without the need for excessive prop
+          passing.<br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <pre>
+              import React, &#123; useContext &#125; from 'react';
+          
+              const ThemeContext = React.createContext('light');
+          
+              const ThemeToggle = () => &#123;
+                const theme = useContext(ThemeContext);
+          
+                const toggleTheme = () => &#123;
+                  // Toggle theme logic
+                &#125;;
+          
+                return (
+                  &lt;button onClick=&#123;toggleTheme&#125;&gt;
+                    Toggle Theme (Current Theme: &#123;theme&#125;)
+                  &lt;/button&gt;
+                );
+              &#125;;
+          
+              export default ThemeToggle;
+            </pre
+          >
+        </code>
+
+        <ul>
+          Important features of useContext:
+          <li>
+            Context Management: useContext simplifies the management of shared
+            data or state by allowing components to access a context directly
+            without prop drilling.
+          </li>
+          <li>
+            Context Creation: Developers can create a context using the
+            createContext function and define the initial context value.
+          </li>
+          <li>
+            Provider Component: The provider component wraps the part of the
+            component tree that should have access to the context. It accepts a
+            value prop to provide the data or functions to be shared.
+          </li>
+          <li>
+            useContext Hook: The useContext hook is used within child components
+            to consume the context and access the provided values. It returns
+            the current context value and triggers a re-render when the context
+            changes.
+          </li>
+          <li>
+            Concise Code: useContext eliminates the need for intermediate
+            components to pass props, resulting in cleaner and more maintainable
+            code. It improves the readability and modularity of components by
+            separating the concern of sharing data from the component hierarchy.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useReducer">
+        <header>useReducer</header>
+        <p>
+          useReducer is a React hook that provides a way to manage complex state
+          logic by using a reducer function. It is an alternative to useState
+          and is particularly useful when the state updates depend on the
+          previous state or when the state transitions involve multiple actions.
+          The useReducer hook takes in a reducer function and an initial state,
+          and returns the current state and a dispatch function that is used to
+          trigger state updates.
+        </p>
+        <br />
+        <p>
+          The reducer function in useReducer follows the same pattern as a
+          regular JavaScript reducer. It takes in the current state and an
+          action as arguments, and returns a new state based on the action type.
+          The dispatch function is used to trigger state updates by passing an
+          action object to it. When the dispatch function is called, the reducer
+          function is invoked with the current state and the action, and returns
+          the updated state.<br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <code>
+            <pre>
+              import React, &#123; useReducer &#125; from 'react';
+          
+              const initialState = &#123; count: 0 &#125;;
+          
+              const reducer = (state, action) => &#123;
+                switch (action.type) &#123;
+                  case 'increment':
+                    return &#123; count: state.count + 1 &#125;;
+                  case 'decrement':
+                    return &#123; count: state.count - 1 &#125;;
+                  case 'reset':
+                    return initialState;
+                  default:
+                    throw new Error('Unsupported action type');
+                &#125;;
+              &#125;;
+          
+              const Counter = () => &#123;
+                const [state, dispatch] = useReducer(reducer, initialState);
+          
+                const increment = () => &#123;
+                  dispatch(&#123; type: 'increment' &#125;);
+                &#125;;
+          
+                const decrement = () => &#123;
+                  dispatch(&#123; type: 'decrement' &#125;);
+                &#125;;
+          
+                const reset = () => &#123;
+                  dispatch(&#123; type: 'reset' &#125;);
+                &#125;;
+          
+                return (
+                  &lt;div&gt;
+                    &lt;p&gt;Count: &#123;state.count&#125;&lt;/p&gt;
+                    &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;/button&gt;
+                    &lt;button onClick=&#123;decrement&#125;&gt;Decrement&lt;/button&gt;
+                    &lt;button onClick=&#123;reset&#125;&gt;Reset&lt;/button&gt;
+                  &lt;/div&gt;
+                );
+              &#125;;
+          
+              export default Counter;
+            </pre>
+          </code>
+        </code>
+        <ul>
+          Important features of useReducer:
+          <li>
+            State management: useReducer provides a way to manage state that
+            involves complex logic and multiple actions.
+          </li>
+          <li>
+            Predictable updates: The state transitions in useReducer are
+            deterministic and depend solely on the provided reducer function,
+            making it easier to reason about state changes.
+          </li>
+          <li>
+            Action-driven updates: State updates are triggered by dispatching
+            actions, allowing for granular control over state changes.
+          </li>
+          <li>
+            Previous state access: The reducer function in useReducer has access
+            to the previous state, enabling logic that relies on the previous
+            state values.
+          </li>
+          <li>
+            Error handling: The reducer function can handle unsupported or
+            unexpected action types by throwing an error, ensuring proper error
+            handling and debugging.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useCallback">
+        <header>useCallback</header>
+        <p>
+          useCallback is a React hook that is used to memoize and optimize the
+          creation of callback functions. It is particularly useful when passing
+          callbacks to child components, as it ensures that the callback
+          function is not recreated on every render unless its dependencies
+          change. This optimization can help improve performance by preventing
+          unnecessary re-renders of child components that rely on the callback.
+        </p>
+        <br />
+        <p>
+          The useCallback hook takes in a callback function and an array of
+          dependencies. It returns a memoized version of the callback function
+          that will only be recreated if any of the dependencies in the array
+          change. By providing the dependencies, you can control when the
+          callback function should be regenerated. This is especially useful
+          when passing callbacks as props to child components, as it ensures
+          that the child components only re-render when necessary.<br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code
+          ><code>
+            <pre>
+              import React, &#123; useState, useCallback &#125; from 'react';
+          
+              const ParentComponent = () => &#123;
+                const [count, setCount] = useState(0);
+          
+                const increment = useCallback(() => &#123;
+                  setCount((prevCount) => prevCount + 1);
+                &#125;, []);
+          
+                return (
+                  &lt;div&gt;
+                    &lt;p&gt;Count: &#123;count&#125;&lt;/p&gt;
+                    &lt;ChildComponent increment=&#123;increment&#125; /&gt;
+                  &lt;/div&gt;
+                );
+              &#125;;
+          
+              const ChildComponent = (&#123; increment &#125;) => &#123;
+                // Child component logic here
+          
+                return (
+                  &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;/button&gt;
+                );
+              &#125;;
+          
+              export default ParentComponent;
+            </pre>
+          </code>
+        </code>
+        <ul>
+          Important features of useCallback:
+          <li>
+            Performance optimization: useCallback helps optimize performance by
+            memoizing the callback function and preventing unnecessary
+            re-creation of the function on each render.
+          </li>
+          <li>
+            Dependency-based updates: The dependencies provided to useCallback
+            determine when the callback function should be regenerated. This
+            ensures that child components relying on the callback only re-render
+            when necessary.
+          </li>
+          <li>
+            Stability for child components: By using useCallback, you can ensure
+            that the callback function passed as props to child components
+            remains stable, avoiding unnecessary re-rendering of those
+            components.
+          </li>
+          <li>
+            Efficient event handlers: useCallback is particularly useful for
+            optimizing event handlers, as it avoids creating a new callback
+            function on each render when the dependencies do not change.
+          </li>
+          <li>
+            Enhanced control over updates: With useCallback, you have finer
+            control over when the callback function should be recreated,
+            allowing for more efficient management of updates and improved
+            performance.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useMemo">
+        <header>useMemo</header>
+        <p>
+          useMemo is a React hook used for memoization, which allows you to
+          optimize the performance of expensive computations or calculations. It
+          is particularly useful when dealing with computationally intensive
+          operations or when you want to cache the result of a function so that
+          it is only recalculated when the dependencies change.
+        </p>
+        <br />
+        <p>
+          The useMemo hook takes in a callback function and an array of
+          dependencies. It returns a memoized value that is computed by the
+          callback function. The value is recalculated only when one or more
+          dependencies in the array change. By providing the dependencies, you
+          can control when the computation should be re-executed. This helps to
+          avoid unnecessary re-computation and improves the overall performance
+          of your application.
+          <br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <pre>
+              import React, &#123; useState, useMemo &#125; from 'react';
+          
+              const ExpensiveCalculation = () => &#123;
+                // Perform expensive calculation
+                const calculateResult = () => &#123;
+                  // Expensive computation logic
+                  // ...
+                  return result;
+                &#125;;
+          
+                const memoizedResult = useMemo(() => calculateResult(), []);
+          
+                return (
+                  &lt;div&gt;
+                    &lt;p&gt;Result: &#123;memoizedResult&#125;&lt;/p&gt;
+                  &lt;/div&gt;
+                );
+              &#125;;
+          
+              export default ExpensiveCalculation;
+            </pre
+          >
+        </code>
+
+        <ul>
+          Important features of useMemo:
+          <li>
+            Performance optimization: useMemo helps optimize performance by
+            memoizing the result of expensive calculations and preventing
+            unnecessary re-computation.
+          </li>
+          <li>
+            Dependency-based updates: The dependencies provided to useMemo
+            determine when the computation should be re-executed. This ensures
+            that the result is recalculated only when necessary.
+          </li>
+          <li>
+            Caching values: useMemo allows you to cache the result of a function
+            or computation, avoiding redundant calculations and improving
+            performance.
+          </li>
+          <li>
+            Fine-grained control: By specifying the dependencies, you have
+            control over when the computation should be re-executed. This
+            enables efficient updates and prevents unnecessary computations.
+          </li>
+          <li>
+            Enhanced performance for expensive operations: useMemo is
+            particularly useful for optimizing expensive operations, such as
+            complex calculations, data transformations, or filtering, by
+            avoiding redundant work and improving overall rendering performance.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useRef">
+        <header>useRef</header>
+        <p>
+          useRef is a React hook that provides a way to create a mutable
+          reference that persists across component renders. Unlike useState, it
+          does not trigger a re-render when the value changes. useRef is
+          commonly used for accessing and manipulating DOM elements, storing
+          mutable values, or preserving values between component renders.
+        </p>
+        <br />
+        <p>
+          The useRef hook returns a mutable ref object with a .current property.
+          This property holds the current value of the reference. When the value
+          of the ref changes, the component does not re-render. You can update
+          the ref's value without causing re-renders by directly modifying the
+          .current property.
+          <br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <pre>
+              import React, &#123; useRef, useEffect &#125; from 'react';
+          
+              const InputComponent = () => &#123;
+                const inputRef = useRef(null);
+          
+                useEffect(() => &#123;
+                  // Focus the input element on component mount
+                  inputRef.current.focus();
+                &#125;, []);
+          
+                const handleButtonClick = () => &#123;
+                  // Access and modify the input value using ref
+                  const inputValue = inputRef.current.value;
+                  // ...
+                &#125;;
+          
+                return (
+                  &lt;div&gt;
+                    &lt;input ref=&#123;inputRef&#125; type="text" /&gt;
+                    &lt;button onClick=&#123;handleButtonClick&#125;&gt;Submit&lt;/button&gt;
+                  &lt;/div&gt;
+                );
+              &#125;;
+          
+              export default InputComponent;
+            </pre
+          >
+        </code>
+
+        <ul>
+          Important features of useRef:
+          <li>
+            Preservation of value: useRef allows you to store and preserve a
+            value between renders without triggering a re-render. This is useful
+            for maintaining mutable state within a component.
+          </li>
+          <li>
+            Accessing and modifying DOM elements: useRef is commonly used to
+            reference and manipulate DOM elements, such as focusing an input
+            field or accessing its properties.
+          </li>
+          <li>
+            Utilizing in combination with other hooks: useRef can be combined
+            with other hooks like useEffect to perform actions such as running
+            code after the initial render.
+          </li>
+          <li>
+            Storing previous values: Since the value of a ref persists across
+            renders, it can be used to store and compare previous values,
+            enabling you to track changes or implement custom logic based on the
+            previous state.
+          </li>
+          <li>
+            Avoiding unnecessary re-renders: By using useRef to store values
+            that don't affect the component's rendering, you can prevent
+            unnecessary re-renders and optimize performance.
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="useEffect_with_Cleanup">
+        <header>useEffect with Cleanup</header>
+        <p>
+          useEffect is a React hook used for handling side effects in functional
+          components. It allows you to perform actions that have side effects,
+          such as data fetching, subscriptions, or manipulating the DOM. In some
+          cases, these side effects need to be cleaned up when the component is
+          unmounted or when a dependency changes. useEffect provides a clean way
+          to handle these cleanup tasks by returning a function from the effect.
+        </p>
+        <br />
+        <p>
+          The cleanup function returned by useEffect is executed before the
+          component is unmounted or before the effect is re-run due to a
+          dependency change. It allows you to clean up any resources or
+          subscriptions created in the effect, preventing memory leaks and
+          ensuring proper component cleanup. By including cleanup logic in the
+          effect, you can maintain the integrity of your component and avoid
+          potential issues.
+          <br />
+          <br /><br />
+          Code Sample;
+        </p>
+        <code>
+          <pre>
+              import React, &#123; useState, useEffect &#125; from 'react';
+          
+              const TimerComponent = () => &#123;
+                const [timer, setTimer] = useState(0);
+          
+                useEffect(() => &#123;
+                  const intervalId = setInterval(() => &#123;
+                    setTimer((prevTimer) => prevTimer + 1);
+                  &#125;, 1000);
+          
+                  // Cleanup function
+                  return () => &#123;
+                    clearInterval(intervalId);
+                  &#125;;
+                &#125;, []);
+          
+                return (
+                  &lt;div&gt;
+                    &lt;p&gt;Timer: &#123;timer&#125;&lt;/p&gt;
+                  &lt;/div&gt;
+                );
+              &#125;;
+          
+              export default TimerComponent;
+            </pre
+          >
+        </code>
+
+        <ul>
+          Important features of useEffect with Cleanup:
+          <li>
+            Cleanup logic: You can include cleanup logic inside the effect
+            function by returning a cleanup function. This ensures that the
+            cleanup tasks are performed when the component is unmounted or when
+            a dependency changes.
+          </li>
+          <li>
+            Unsubscribing or clearing resources: useEffect with cleanup is
+            commonly used to handle tasks such as unsubscribing from event
+            listeners, closing connections, or clearing intervals or timeouts to
+            prevent memory leaks.
+          </li>
+          <li>
+            Dependency-based cleanup: By specifying dependencies in the
+            dependency array, you can trigger the cleanup function whenever the
+            dependencies change. This is useful for scenarios where you need to
+            clean up resources based on specific conditions or updates in your
+            component.
+          </li>
+          <li>
+            Ensuring component integrity: Cleanup tasks performed in useEffect
+            help maintain the integrity of your component and ensure that all
+            resources and subscriptions are properly managed and released when
+            they are no longer needed.
+          </li>
+          <li>
+            Multiple cleanup functions: You can have multiple useEffect hooks
+            with cleanup in a single component, allowing you to handle different
+            cleanup tasks for different effects or scenarios.
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script>
+      const button = document.querySelector(".toggle");
+      const body = document.body;
+      button.addEventListener("click", () => {
+        if (button.innerHTML == "Dark") {
+          button.innerHTML = "Light";
+          body.className = "dark-theme";
+        } else {
+          button.innerHTML = "Dark";
+          body.className = "theme";
+        }
+      });
+      window.addEventListener("scroll", () => {
+        const links = document.querySelectorAll(".main-section");
+        links.forEach((i) => {
+          const rect = i.getBoundingClientRect();
+          if (
+            rect.bottom >= window.innerHeight / 2 - 24 &&
+            rect.top <= window.innerHeight / 2 + 30
+          ) {
+            const activate = document.querySelector(`a[href="#${i.id}"]`);
+            activate.classList.add("active");
+          } else {
+            const activate = document.querySelector(`a[href="#${i.id}"]`);
+            activate.classList.remove("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
