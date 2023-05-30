@@ -129,6 +129,7 @@ p {
   display: flex;
   flex-direction: column;
 }
+
 .main-section {
   margin: 30px;
   min-height: 93vh;
@@ -204,7 +205,8 @@ p {
 
   #main-doc {
     top: 35vh;
-    width: 80vw;
+    width: 100vw;
+    margin: auto;
     left: 0;
     overflow: auto;
   }
