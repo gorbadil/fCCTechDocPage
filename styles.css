@@ -89,23 +89,25 @@ p {
   border-bottom: 1px solid var(--light);
 }
 .nav-link {
+  padding-left: 20px;
   font-size: 1.2rem;
   line-height: 3rem;
   border-bottom: 1px solid var(--light);
   border-collapse: collapse;
+  transition: all 0.5s;
 }
 @media screen and (min-width: 961px) {
   .nav-link:hover {
     background-color: var(--dark);
     color: var(--back);
     padding-left: 40px;
-    transition: 100ms;
   }
 }
 
 .active {
   position: relative;
   overflow: hidden;
+  transition: all 0.5s;
 }
 
 .active::after {
@@ -118,6 +120,7 @@ p {
   width: 30px;
   height: 200%;
   rotate: 30deg;
+  transition: all 0.5s;
 }
 
 /* Main Area */
